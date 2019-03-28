@@ -53,14 +53,12 @@
         {% endif %}
         
         <a href="#">Why do this?</a>
+        <p>A word is nothing, go on, be everything.</p>
       </header>
       <section>
       {{ content }}
       </section>
       <footer>
-        {% if site.github.is_project_page %}
-        <p>A word is nothing, go on, be everything.</p>
-        {% endif %}
         <p><small>Made with ❤ by Joleensteve<br /> 总字数：{% assign count = 0 %}
 {% for post in site.posts %}
     {% assign single_count = post.content | strip_html | strip_newlines | remove: " " | size %}
