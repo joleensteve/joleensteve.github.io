@@ -1,17 +1,12 @@
 theme: jekyll-theme-minimal
-title: Mayx的博客
-logo: https://avatars0.githubusercontent.com/u/17966333
-author: mayx
+title: 虚拟的世界
+logo: https://avatars3.githubusercontent.com/u/23043352?s=460&v=4
+author: joleensteve
 excerpt_separator: <!--more-->
 paginate: 5
 leancloud:
   enable: true
-  app_id: 0sF5pKqo9g6tbKcUyNOLyMy9-gzGzoHsz
-  app_key: 4n88LYh73w7ksw9eHHdf8Foj
 plugins:
   - jekyll-sitemap
-  - jekyll-feed
-feed:
-  path: atom.xml
 kramdown:
   input: GFM

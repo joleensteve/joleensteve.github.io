@@ -1,9 +1,9 @@
 ---
 layout: default
-title: 首页 - 我的文章
+title: the virtual world
 ---
 
-<h1> 首页 - 我的文章 </h1>
+<h1> the virtual world </h1>
 
 <hr />
 
@@ -14,7 +14,6 @@ title: 首页 - 我的文章
     <h2><a class="post-link" href="{{ post.url }}">{{ post.title }}</a></h2>
   <p class="author">
     <span class="date">{{ post.date | date: "%-d %B %Y" }}</span>
-    {% if site.leancloud.enable %} <!--[if !IE]> --> <span id="{{ post.url }}" class="leancloud_visitors" data-flag-title="{{ post.title }}"> <span class="post-meta-divider">|</span> <span class="post-meta-item-text"> Hits: </span> <span class="leancloud-visitors-count"></span> </span> <!-- <![endif]--> {% endif %}
   </p>
   <div class="content">
     {{ post.excerpt | strip_html | strip_newlines }} 
@@ -48,19 +47,3 @@ title: 首页 - 我的文章
 </div>
 {% endif %}
 <hr />
-<input name="live2dBGM" value="https://music.163.com/song/media/outer/url?id=523658881.mp3" type="hidden">
- 
-<h2>其他页面</h2>
- 
- <a href="/RenPy_Docs_CHS/RenPy/">RenPy 中文文档（镜像站）</a><br>
-
- <a href="/git.io.html">Unlimited Git.io</a><br>
-
- <a href="/message.html">留言板</a><br>
-
-<br>
-<h3>Mayx 的网站</h3>
-
-<a href="https://mayx.tk/">Mayx日报</a><br>
-
-<a href="https://yuri.gear.host/">Mayx的API</a><br>

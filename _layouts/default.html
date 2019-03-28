@@ -4,124 +4,13 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
-{% seo %}
-{% feed_meta %}
     <link rel="stylesheet" href="{{ "/assets/css/style.css?v=" | append: site.github.build_revision | relative_url }}">
-    <!--[if !IE]> -->
-    <link rel="stylesheet" href="/Live2dHistoire/live2d/css/live2d.css" />
-    <!-- <![endif]-->
-    <!--[if lt IE 9]>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.min.js"></script>
-    <![endif]-->
-    
 <!-- jQuery -->
 <script src="//cdn.jsdelivr.net/npm/jquery@1.9.1/jquery.min.js"></script>
 <!--[if !IE]> -->
 <!-- Bootstrap Core JavaScript -->
 <script src="//cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js
 "></script>
-{% if site.leancloud.enable %}
-
-<script src="//cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
-<script>AV.initialize("{{site.leancloud.app_id}}", "{{site.leancloud.app_key}}");</script>
-<script>
-    function showHitCount(Counter) {
-        var query = new AV.Query(Counter);
-        var entries = [];
-        var $visitors = $(".leancloud_visitors");
-        $visitors.each(function () {
-            entries.push( $(this).attr("id").trim() );
-        });
-        query.containedIn('url', entries);
-        query.find()
-                .done(function (results) {
-                    console.log("results",results);
-                    var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
-                    if (results.length === 0) {
-                        $visitors.find(COUNT_CONTAINER_REF).text(0);
-                        return;
-                    }
-                    for (var i = 0; i < results.length; i++) {
-                        var item = results[i];
-                        var url = item.get('url');
-                        var hits = item.get('hits');
-                        var element = document.getElementById(url);
-                        $(element).find(COUNT_CONTAINER_REF).text(hits);
-                    }
-                    for(var i = 0; i < entries.length; i++) {
-                        var url = entries[i];
-                        var element = document.getElementById(url);
-                        var countSpan = $(element).find(COUNT_CONTAINER_REF);
-                        if( countSpan.text() == '') {
-                            countSpan.text(0);
-                        }
-                    }
-                })
-                .fail(function (object, error) {
-                    console.log("Error: " + error.code + " " + error.message);
-                });
-    }
-    function addCount(Counter) {
-        var $visitors = $(".leancloud_visitors");
-        var url = $visitors.attr('id').trim();
-        var title = $visitors.attr('data-flag-title').trim();
-        var query = new AV.Query(Counter);
-        query.equalTo("url", url);
-        query.find({
-            success: function(results) {
-                if (results.length > 0) {
-                    var counter = results[0];
-                    counter.fetchWhenSave(true);
-                    counter.increment("hits");
-                    counter.save(null, {
-                        success: function(counter) {
-                            var $element = $(document.getElementById(url));
-                            $element.find('.leancloud-visitors-count').text(counter.get('hits'));
-                        },
-                        error: function(counter, error) {
-                            console.log('Failed to save Visitor num, with error message: ' + error.message);
-                        }
-                    });
-                } else {
-                    var newcounter = new Counter();
-                    /* Set ACL */
-                    var acl = new AV.ACL();
-                    acl.setPublicReadAccess(true);
-                    acl.setPublicWriteAccess(true);
-                    newcounter.setACL(acl);
-                    /* End Set ACL */
-                    newcounter.set("title", title);
-                    newcounter.set("url", url);
-                    newcounter.set("hits", 1);
-                    newcounter.save(null, {
-                        success: function(newcounter) {
-                            var $element = $(document.getElementById(url));
-                            $element.find('.leancloud-visitors-count').text(newcounter.get('hits'));
-                        },
-                        error: function(newcounter, error) {
-                            console.log('Failed to create');
-                        }
-                    });
-                }
-            },
-            error: function(error) {
-                console.log('Error:' + error.code + " " + error.message);
-            }
-        });
-    }
-    $(function() {
-        var Counter = AV.Object.extend("Counter");
-        if (window.location.pathname !== '/' && $('.leancloud_visitors').length == 1) {
-            // in post.html, so add 1 to hit counts
-            addCount(Counter);
-        } else if ($('.post-link').length > 0){
-            // in index.html, there are many 'leancloud_visitors' and 'post-link', so just show hit counts.
-            showHitCount(Counter);
-        }
-    });
-</script>
-{% endif %}
 <!-- <![endif]-->
 <style type="text/css">
 .backToTop {
@@ -163,44 +52,16 @@
         <p class="view"><a href="{{ site.github.owner_url }}">View My GitHub Profile</a></p>
         {% endif %}
         
-        <a href="{{ "/about.html" | relative_url }}">About Me</a>
+        <a href="#">Why do this?</a>
       </header>
       <section>
-
       {{ content }}
-      <!--[if !IE]> -->
-<div id="landlord" style="left:5px;bottom:0px;">
-    <div class="message" style="opacity:0"></div>
-    <canvas id="live2d" width="500" height="560" class="live2d"></canvas>
-    <div class="live_talk_input_body">
-    	<div class="live_talk_input_name_body" style="display:none;">
-        	<input name="name" type="hidden" class="live_talk_name white_input" id="AIuserName" value="Mayx_Blog_Talk" />
-        </div>
-        <div class="live_talk_input_text_body">
-        	<input name="talk" type="text" class="live_talk_talk white_input" id="AIuserText" autocomplete="off" placeholder="要和我聊什么呀？"/>
-            <button type="button" class="live_talk_send_btn" id="talk_send">发送</button>
-        </div>
-    </div>
-    <input name="live_talk" id="live_talk" value="1" type="hidden" />
-    <div class="live_ico_box" style="display:none;">
-    	<div class="live_ico_item type_info" id="showInfoBtn"></div>
-    	<div class="live_ico_item type_talk" id="showTalkBtn"></div>
-        <div class="live_ico_item type_music" id="musicButton"></div>
-        <div class="live_ico_item type_youdu" id="youduButton"></div>
-        <div class="live_ico_item type_quit" id="hideButton"></div>
-        <input name="live_statu_val" id="live_statu_val" value="0" type="hidden" />
-        <audio src="" style="display:none;" id="live2d_bgm" data-bgm="0" preload="none"></audio>
-        <input id="duType" value="douqilai,l2d_caihong" type="hidden">
-    </div>
-</div>
-<div id="open_live2d">召唤伊斯特瓦尔</div>
-    <!-- <![endif]-->
       </section>
       <footer>
         {% if site.github.is_project_page %}
-        <p>This project is maintained by <a href="{{ site.github.owner_url }}">{{ site.github.owner_name }}</a></p>
+        <p>A word is nothing, go on, be everything.</p>
         {% endif %}
-        <p><small>Made with ❤ by Mayx<br /> 总字数：{% assign count = 0 %}
+        <p><small>Made with ❤ by Joleensteve<br /> 总字数：{% assign count = 0 %}
 {% for post in site.posts %}
     {% assign single_count = post.content | strip_html | strip_newlines | remove: " " | size %}
     {% assign count = count | plus: single_count %}
@@ -212,20 +73,10 @@
     {{ count }}
           {% endif %} - 文章数：{% for post in site.posts %}
               {% assign co = co | plus: 1 %}
-          {% endfor %}{{ co }} - <a href="{{ "/atom.xml" | relative_url }}" >Atom</a></small></p>
+          {% endfor %}{{ co }}</small></p>
       </footer>
     </div>
     <script src="{{ "/assets/js/scale.fix.js" | relative_url }}"></script>
-    {% if site.google_analytics %}
-    <script>
-      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-      })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-      ga('create', '{{ site.google_analytics }}', 'auto');
-      ga('send', 'pageview');
-    </script>
-    {% endif %}
 
 <script type="text/javascript">
 (function() {
@@ -244,41 +95,5 @@
     $(function() { $backToTopFun(); });
 })();
 </script>
-<!--[if !IE]> -->
-<script>
-var message_Path = '/Live2dHistoire/live2d/';//资源目录，如果目录不对请更改
-var talkAPI = "https://yuri.gear.host/talk.php";//如果有类似图灵机器人的聊天接口请填写接口路径
-</script>
-<script type="text/javascript" src="/Live2dHistoire/live2d/js/live2d.js"></script>
-<script type="text/javascript" src="/Live2dHistoire/live2d/js/message.js"></script>
-<script type="text/javascript">
-$(document).ready(function(){
-  $("div#landlord").mouseenter(function(){
-    $("div.live_ico_box").fadeIn();
-  });
-  $("div#landlord").mouseleave(function(){
-    $("div.live_ico_box").fadeOut();
-  });
-});
-</script>
-<div class="cb-search-tool" style="position: fixed; top: 0px ; bottom: 0px; left: 0px; right:  0px;
-      opacity: 0.95; background-color: #111111; z-index: 9999; display: none;">
-    <input type="text" class="form-control cb-search-content" id="cb-search-content" style="position: fixed; top: 60px" placeholder="文章标题 标签" >
-
-    <div style="position: fixed; top: 16px; right: 16px;">
-        <img src="/search/img/cb-close.png"  id="cb-close-btn"/>
-    </div>
-</div>
-
-<div style="position: fixed; right: 16px; bottom: 20px;">
-    <img src="/search/img/cb-search.png"  id="cb-search-btn"  title="搜索"/>
-</div>
-
-<link rel="stylesheet" href="{{ "/search/css/cb-search.css" | prepend: site.baseurl }}">
-
-<script src="{{ "/search/js/bootstrap3-typeahead.min.js" | prepend: site.baseurl }}"></script>
-<script src="{{ "/search/js/cb-search.js" | prepend: site.baseurl }}"></script>
-
-<!-- <![endif]-->
-  </body>
+</body>
 </html>
