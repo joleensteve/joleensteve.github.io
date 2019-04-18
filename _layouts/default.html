@@ -5,7 +5,6 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="{{ "/assets/css/style.css?v=" | append: site.github.build_revision | relative_url }}">
-    <link rel="stylesheet" href="https://cyc-1256109796.cos.ap-guangzhou.myqcloud.com/vue.css">
 <!-- jQuery -->
 <script src="//cdn.jsdelivr.net/npm/jquery@1.9.1/jquery.min.js"></script>
 <!--[if !IE]> -->
@@ -14,6 +13,63 @@
 "></script>
 <!-- <![endif]-->
 <style type="text/css">
+.github-corner {
+border-bottom: 0;
+position: fixed;
+right: 0;
+text-decoration: none;
+top: 0;
+z-index: 1
+}
+
+.github-corner:hover .octo-arm {
+animation: a .56s ease-in-out
+}
+
+.github-corner svg {
+color: #fff;
+fill: var(--theme-color, #42b983);
+height: 80px;
+width: 80px
+}
+
+@media print {
+.github-corner {
+display: none
+}
+}
+
+@media screen and (max-width: 768px) {
+.github-corner {
+position: fixed
+}
+
+
+.github-corner {
+display: none
+}
+
+.github-corner:hover .octo-arm {
+animation: none
+}
+
+.github-corner .octo-arm {
+animation: a .56s ease-in-out
+}
+}
+
+@keyframes a {
+0%, to {
+transform: rotate(0)
+}
+20%, 60% {
+transform: rotate(-25deg)
+}
+40%, 80% {
+transform: rotate(10deg)
+}
+}
+
 .backToTop {
  display: none;
  width: 18px;
