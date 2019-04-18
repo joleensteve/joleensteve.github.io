@@ -11,6 +11,10 @@ layout: default
 <hr>
 {{content}}
 
+{% if page.tags %}
+  <small>tags: <em>{{ page.tags | join: "</em> - <em>" }}</em></small>
+{% endif %}
+
 <div class="pagination">
     {% if page.previous.url %}
       <span class="prev" >
